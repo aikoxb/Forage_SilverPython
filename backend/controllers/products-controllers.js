@@ -1,7 +1,6 @@
 const HttpError = require("../models/http-error");
 const { validationResult } = require("express-validator");
 const Product = require('../models/product');
-const product = require('../models/product');
 
 const createProduct = async (req, res, next) => {
     //checking validations
