@@ -21,7 +21,7 @@ const createProduct = async (req, res, next) => {
     try{
         await newProduct.save();
     }catch(err){
-        return next(new HttpError("Failed to create place. Please try again.", 500));
+        return next(new HttpError("Failed to create product. Please try again.", 500));
     }
 
     res.status(201).json({product: newProduct.toObject({ getters : true })});
@@ -58,7 +58,7 @@ const getProductById = async (req, res, next) => {
     //get product id from query
     const productid = req.params.productid;
 
-    //get product information form mongodb
+    //get product information from mongodb
     let productInfo;
     try{
         productInfo = await Product.findById(productid);
