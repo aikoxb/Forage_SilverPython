@@ -2,6 +2,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const ordersRoutes = require("./routes/orders-routes");
+const HttpError = require("./models/http-error");
 require('dotenv').config()
 
 // Create an Express object
@@ -10,8 +12,24 @@ const app = express();
 // Middleware to parse incoming JSON requests
 app.use(bodyParser.json());
 
-//Connect to MongoDB
+//routes for orders
+app.use("/api/orders", ordersRoutes);
 
+app.use((req, res, next) => {
+    throw new HttpError("The requested URL was not found on this server.", 404);
+});
+
+//middleware to handle errors
+app.use((error, req, res, next) => {
+    if(res.headerSent){
+        return next(error);
+    }
+
+    res.status(error.code || 500);
+    res.json({message: error.message} || "An unknown error occured!");
+});
+
+//Connect to MongoDB
 mongoose
     .connect(process.env.MONGODB_KEY)
     .then(() => {
