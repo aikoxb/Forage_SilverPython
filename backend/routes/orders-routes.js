@@ -29,6 +29,6 @@ router.patch("/:orderId",
 );
 
 //delete order
-router.delete("/orderId", ordersControllers.deleteOrder);
+router.delete("/:orderId", ordersControllers.deleteOrder);
 
 module.exports = router;

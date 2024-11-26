@@ -40,7 +40,7 @@ const createOrder = async (req, res, next) => {
 
 const getOrderById = async (req, res, next) => {
     //get order id from query
-    const orderId = req.params.orderid;
+    const orderId = req.params.orderId;
 
     //get order information from mongodb
     let orderInfo;
@@ -72,7 +72,7 @@ const updateOrder = async (req, res, next) => {
     const { status, paymentStatus } = req.body;
 
     //get order id from query
-    const orderId = req.params.orderid;
+    const orderId = req.params.orderId;
 
     //check if order exist 
     let orderInfo;
@@ -107,12 +107,12 @@ const updateOrder = async (req, res, next) => {
 
 const deleteOrder = async (req, res, next) => {
     //get order id from query
-    const orderId = req.params.orderid;
+    const orderId = req.params.orderId;
 
     //check if that order exist
-    let orderinfo;
+    let orderInfo;
     try{
-        orderinfo = await Order.findById(orderId);
+        orderInfo = await Order.findById(orderId);
     }catch(err){
         return next(new HttpError("Fetching order failed, please try again.", 500));
     }
