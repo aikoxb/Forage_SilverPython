@@ -11,7 +11,13 @@ const orderSchema = new Schema({
     deliveryAddress: { type: String, required: true },
     paymentMethod: { type: String, required: true },
     paymentStatus: { type: String, required: true },
-    creationDate: { type: Date, required: true }
+    creationDate: { type: Date, required: true },
+    products: [ {
+        name: { type: String, required: true },
+        price: { type: Number, required: true },
+        quantity: { type: Number, required: true },
+        total: { type: Number, required: true },
+    },],
 });
 
 //Export the Order model for use in controller
