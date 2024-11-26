@@ -23,6 +23,12 @@ const createOrder = async (req, res, next) => {
         return next(new HttpError("Products are required and should be an array.", 400));
     }
 
+    //auto-calculate the product totals so we don't have to enter it each time
+    for (let i = 0; i < products.length; i++) {
+        let product = products[i];
+        product.total = product.quantity * product.price;
+    }
+
     //create an order with all details
     const newOrder = new Order({ 
         orderStatus, 
