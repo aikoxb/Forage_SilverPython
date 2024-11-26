@@ -80,8 +80,8 @@ const updateOrder = async (req, res, next) => {
         return next(new HttpError("Invalid Input, Please enter correct data!", 400));
     }
 
-    //assuming the only things to update on an order is the status
-    const { orderStatus, paymentStatus } = req.body;
+    //assuming the only things to update on an order
+    const { orderStatus, deliveryName, deliveryAddress, paymentMethod, paymentStatus, products } = req.body;
 
     //get order id from query
     const orderId = req.params.orderId;
@@ -103,8 +103,24 @@ const updateOrder = async (req, res, next) => {
         orderInfo.orderStatus = orderStatus;
     }
 
+    if (deliveryName){
+        orderInfo.deliveryName = deliveryName;
+    }
+
+    if (deliveryAddress){
+        orderInfo.deliveryAddress = deliveryAddress;
+    }
+
+    if (paymentMethod){
+        orderInfo.paymentMethod = paymentMethod;
+    }
+
     if (paymentStatus){
         orderInfo.paymentStatus = paymentStatus;
+    }
+
+    if (products && Array.isArray(products)) {
+        orderInfo.products = [...orderInfo.products, ...products];
     }
 
     //update information into mongodb

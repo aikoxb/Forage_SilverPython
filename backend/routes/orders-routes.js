@@ -14,6 +14,7 @@ router.post("/",
         check("deliveryAddress").notEmpty(),
         check("paymentMethod").notEmpty(),
         check("paymentStatus").notEmpty(),
+        check("products").notEmpty()
     ],
     ordersControllers.createOrder
 );
@@ -22,7 +23,11 @@ router.post("/",
 router.patch("/:orderId",
     [
         check("status").optional(),
+        check("deliveryName").optional(),
+        check("deliveryAddress").optional(),
+        check("paymentMethod").optional(),
         check("paymentStatus").optional(),
+        check("products").optional()
     ],
     ordersControllers.updateOrder
 );
