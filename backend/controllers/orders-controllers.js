@@ -13,10 +13,15 @@ const createOrder = async (req, res, next) => {
     }
 
     //get order details from req body
-    const {orderStatus, deliveryName, deliveryAddress, paymentMethod, paymentStatus } = req.body;
+    const { orderStatus, deliveryName, deliveryAddress, paymentMethod, paymentStatus, products } = req.body;
 
     //set the creation date to current date/time
     const creationDate = new Date();
+
+    //check that the products has at least 1 product in it
+    if (!Array.isArray(products) || products.length === 0) {
+        return next(new HttpError("Products are required and should be an array.", 400));
+    }
 
     //create an order with all details
     const newOrder = new Order({ 
@@ -25,7 +30,8 @@ const createOrder = async (req, res, next) => {
         deliveryAddress, 
         paymentMethod, 
         paymentStatus, 
-        creationDate 
+        creationDate, 
+        products
     });
     
     //save order to mongodb
@@ -69,7 +75,7 @@ const updateOrder = async (req, res, next) => {
     }
 
     //assuming the only things to update on an order is the status
-    const { status, paymentStatus } = req.body;
+    const { orderStatus, paymentStatus } = req.body;
 
     //get order id from query
     const orderId = req.params.orderId;
@@ -87,8 +93,8 @@ const updateOrder = async (req, res, next) => {
         return next(new HttpError("Order not found.", 404));
     }
 
-    if (status){
-        orderInfo.status = status;
+    if (orderStatus){
+        orderInfo.orderStatus = orderStatus;
     }
 
     if (paymentStatus){
