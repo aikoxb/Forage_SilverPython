@@ -20,13 +20,5 @@ const orderSchema = new Schema({
     },],
 });
 
-// Define schema for product model
-const productSchema = new Schema({
-    name: { type: String, required: true },
-    quantity: { type: Number, required: true },
-    price: { type: Number, required: true },
-});
-
 //Export the Order model for use in controller
 module.exports = mongoose.model('Order', orderSchema);
-module.exports = mongoose.model('Product', productSchema);
