@@ -2,13 +2,18 @@ const express = require("express");
 const { check } = require("express-validator");
 const ordersControllers = require("../controllers/orders-controllers");
 const router = express.Router();
+const checkAuth = require("../middleware/check-auth")
 
 //get order by id
 router.get("/:orderId", ordersControllers.getOrderById);
 
+//use the token for auth
+router.use(checkAuth)
+
 //create order
 router.post("/",
     [
+        check("userId").notEmpty(),
         check("orderStatus").notEmpty(),
         check("deliveryName").notEmpty(),
         check("deliveryAddress").notEmpty(),
@@ -22,6 +27,7 @@ router.post("/",
 //update order
 router.patch("/:orderId",
     [
+        check("userId").notEmpty(),
         check("status").optional(),
         check("deliveryName").optional(),
         check("deliveryAddress").optional(),

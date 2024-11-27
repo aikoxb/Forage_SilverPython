@@ -1,6 +1,7 @@
 const HttpError = require("../models/http-error");
 const { validationResult } = require("express-validator");
 const Order = require('../models/order');
+const User = require("../models/users");
 
 const createOrder = async (req, res, next) => {
     //checking validations
@@ -13,7 +14,19 @@ const createOrder = async (req, res, next) => {
     }
 
     //get order details from req body
-    const { orderStatus, deliveryName, deliveryAddress, paymentMethod, paymentStatus, products } = req.body;
+    const { userId, orderStatus, deliveryName, deliveryAddress, paymentMethod, paymentStatus, products } = req.body;
+    
+    //check if user exists for order
+    let existingUserId;
+    try {
+        existingUserId = await User.findById(userId);
+    } catch (err) {
+        return next(new HttpError("Cannot find user, Please try again later.", 500));
+    }
+
+    if (existingUserId.length == 0) {
+        return next(new HttpError("User does not exist, please create order with a valid user", 422));
+    }
 
     //set the creation date to current date/time
     const creationDate = new Date();
@@ -31,6 +44,7 @@ const createOrder = async (req, res, next) => {
 
     //create an order with all details
     const newOrder = new Order({ 
+        userId,
         orderStatus, 
         deliveryName, 
         deliveryAddress, 
@@ -97,6 +111,10 @@ const updateOrder = async (req, res, next) => {
     //display error message if order doesnt exist
     if(!orderInfo){
         return next(new HttpError("Order not found.", 404));
+    }
+
+    if (userId){
+        orderInfo.userId = userId;
     }
 
     if (orderStatus){

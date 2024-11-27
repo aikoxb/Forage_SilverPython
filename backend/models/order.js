@@ -6,6 +6,7 @@ const Schema = mongoose.Schema;
 
 // Define schema for Order model
 const orderSchema = new Schema({
+    userId: {type: String, required: true },
     orderStatus: { type: String, required: true },
     deliveryName: { type: String, required: true },
     deliveryAddress: { type: String, required: true },
