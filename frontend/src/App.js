@@ -1,5 +1,6 @@
 import React from "react";
 import './App.css';
+import Products from "./product/pages/Home";
 import {
   BrowserRouter as Router,
   Route,
@@ -11,11 +12,13 @@ const App = () => {
   return (
     <Router>
       <Switch>
-        <Route path="/">
-          
+        <Route path="/" exact>
+          <Products />
         </Route>
+        <Redirect to="/"/>
       </Switch>
     </Router>
+    
   );
 }
 
