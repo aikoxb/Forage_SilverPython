@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import './App.css';
 import Products from "./product/pages/Home";
 import {
@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 import PlaceHolder from "./shared/pages/PlaceHolder";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
+import Cart from "./product/pages/Cart";
 
 import Auth from "./user/pages/Auth";
 import Account from "./user/pages/Account";
@@ -53,6 +54,28 @@ const App = () => {
     );
   }
 
+  //state to manage the items we put in the cart
+  const [cart, setCart] = useState([]);
+
+  const addToCartHandler = (item) => {
+    const existingItemIndex = cart.findIndex((i) => i.id === item.id);
+
+    if (existingItemIndex >= 0) {
+      //either update item if it already exists
+      const updatedCart = [...cart];
+      updatedCart[existingItemIndex].quantity += item.quantity;
+      setCart(updatedCart);
+    } else {
+      //or add item to cart if it doesn't exist yet
+      setCart((prevCart) => [...prevCart, item]);
+    }
+  };
+
+  //if user deletes item from cart
+  const removeFromCartHandler = (id) => {
+    setCart((prevCart) => prevCart.filter((item) => item.id !== id));
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -65,7 +88,17 @@ const App = () => {
     >
       <Router>
         <MainNavigation />
-        <main>{routes}</main>
+        <main>
+        <Switch>
+          <Route path="/" exact>
+            <Products onAddToCart={addToCartHandler} />
+          </Route>
+          <Route path="/cart" exact>
+            <Cart cart={cart} onRemoveItem={removeFromCartHandler} />
+          </Route>
+          <Redirect to="/"/>
+        </Switch>
+        </main>
       </Router>
     </AuthContext.Provider>
   );
