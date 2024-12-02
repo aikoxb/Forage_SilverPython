@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import './App.css';
 import Products from "./product/pages/Home";
 import {
@@ -9,7 +9,6 @@ import {
 } from "react-router-dom";
 import PlaceHolder from "./shared/pages/PlaceHolder";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
-import Cart from "./product/pages/Cart";
 
 import Auth from "./user/pages/Auth";
 import Account from "./user/pages/Account";
