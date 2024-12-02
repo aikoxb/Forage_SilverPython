@@ -16,6 +16,8 @@ const createOrder = async (req, res, next) => {
     //get order details from req body
     const { userId, orderStatus, deliveryName, deliveryAddress, paymentMethod, paymentStatus, products } = req.body;
     
+    console.log("Received Data:", req.body);
+
     //check if user exists for order
     let existingUserId;
     try {
@@ -178,7 +180,25 @@ const deleteOrder = async (req, res, next) => {
     res.status(200).json({ message: "Deleted the order successfully."});
 }
 
+const getOrdersByUserId = async (req, res, next) => {
+    const userId = req.params.userId; 
+  
+    try {
+      const orders = await Order.find({ userId });
+  
+      if (!orders || orders.length === 0) {
+        return res.status(404).json({ message: "No orders found for this user." });
+      }
+  
+      res.status(200).json({ orders: orders }); 
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "Fetching orders failed, please try again." });
+    }
+};
+
 exports.createOrder = createOrder;
 exports.getOrderById = getOrderById;
 exports.updateOrder = updateOrder;
 exports.deleteOrder = deleteOrder;
+exports.getOrdersByUserId = getOrdersByUserId;

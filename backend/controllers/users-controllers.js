@@ -125,6 +125,49 @@ const login = async (req, res, next) => {
     res.json({ userId: existingUser[0].id, email: existingUser[0].email, token: token });
 };
 
+//get user details by ID
+const getUserById = async (req, res, next) => {
+    const userId = req.params.userId;
+
+    try {
+        const user = await User.findById(userId).select("-password"); 
+        if (!user) {
+            return res.status(404).json({ message: "User not found." });
+        }
+
+        res.json({ user });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Fetching user failed, please try again later." });
+    }
+};
+
+//update user details
+const updateUserById = async (req, res, next) => {
+    const { name, email, phone, address } = req.body;
+    const userId = req.params.userId;
+
+    try {
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            { name, email, phone, address },
+            { new: true, runValidators: true }
+        );
+
+        if (!updatedUser) {
+            return res.status(404).json({ message: "User not found." });
+        }
+
+        res.json({ user: updatedUser });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "Updating user failed, please try again later." });
+    }
+};
+
+
 exports.getAllUsers = getAllUsers;
 exports.signup = signup;
 exports.login = login;
+exports.getUserById = getUserById;
+exports.updateUserById = updateUserById;

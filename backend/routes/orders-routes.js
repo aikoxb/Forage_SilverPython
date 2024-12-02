@@ -13,13 +13,13 @@ router.use(checkAuth)
 //create order
 router.post("/",
     [
-        check("userId").notEmpty(),
-        check("orderStatus").notEmpty(),
-        check("deliveryName").notEmpty(),
-        check("deliveryAddress").notEmpty(),
-        check("paymentMethod").notEmpty(),
-        check("paymentStatus").notEmpty(),
-        check("products").notEmpty()
+        check("userId").not().isEmpty().withMessage("User ID is required."),
+        check("orderStatus").not().isEmpty().withMessage("Order status is required."),
+        check("deliveryName").not().isEmpty().withMessage("Delivery name is required."),
+        check("deliveryAddress").not().isEmpty().withMessage("Delivery address is required."),
+        check("paymentMethod").not().isEmpty().withMessage("Payment method is required."),
+        check("paymentStatus").not().isEmpty().withMessage("Payment status is required."),
+        check("products").isArray().withMessage("Products must be an array."),
     ],
     ordersControllers.createOrder
 );
@@ -40,5 +40,8 @@ router.patch("/:orderId",
 
 //delete order
 router.delete("/:orderId", ordersControllers.deleteOrder);
+
+//get orders by userId
+router.get("/:userId", ordersControllers.getOrdersByUserId);
 
 module.exports = router;

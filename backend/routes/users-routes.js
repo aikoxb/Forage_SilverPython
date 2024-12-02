@@ -22,4 +22,10 @@ router.post(
 //login after signup
 router.post("/login", usersControllers.login);
 
+//get user by id
+router.get("/:userId", usersControllers.getUserById); 
+
+//update user
+router.patch("/:userId", usersControllers.updateUserById);
+
 module.exports = router;
