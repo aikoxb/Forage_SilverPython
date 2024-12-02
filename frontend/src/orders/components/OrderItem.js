@@ -12,12 +12,7 @@ import "./OrderItem.css";
 const OrderItem = (props) => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const auth = useContext(AuthContext);
-  const [showMap, setShowMap] = useState(false); 
   const [showConfirmModal, setShowConfirmModal] = useState(false); 
-
-  const openMapHandler = () => setShowMap(true);
-
-  const closeMapHandler = () => setShowMap(false);
 
   const showDeleteWarningHandler = () => {
     setShowConfirmModal(true);
@@ -41,22 +36,15 @@ const OrderItem = (props) => {
       props.onDelete(props.id);
     } catch (err) {}
   };
+  
+  // Debugging logs
+  console.log("Auth User ID:", auth.userId);
+  console.log("Props User ID:", props.userId);
+  console.log("Condition for buttons:", auth.userId === props.userId);
 
   return (
     <React.Fragment>
       <ErrorModal error={error} onClear={clearError} />
-      <Modal
-        show={showMap}
-        onCancel={closeMapHandler}
-        header={props.deliveryAddress}
-        contentClass="order-item__modal-content"
-        footerClass="order-item__modal-actions"
-        footer={<Button onClick={closeMapHandler}>CLOSE</Button>}
-      >
-        <div className="map-container">
-            <h2>THE MAP!</h2>
-        </div>
-      </Modal>
       <Modal
         show={showConfirmModal}
         onCancel={cancelDeleteHandler}
@@ -81,21 +69,19 @@ const OrderItem = (props) => {
         <Card className="order-item__content">
           {isLoading && <LoadingSpinner asOverlay />}
           <div className="order-item__info">
-            <h2>{props.orderStatus}</h2>
-            <h3>{props.deliveryName}</h3>
-            <p>{props.deliveryAddress}</p>
-            <p>{props.paymentMethod}</p>
-            <p>{props.paymentStatus}</p>
+            <p>Order Status: {props.orderStatus}</p>
+            <p>Delivery Name: {props.deliveryName}</p>
+            <p>Delivery Address: {props.deliveryAddress}</p>
+            <p>Payment Method: {props.paymentMethod}</p>
+            <p>Payment Status: {props.paymentStatus}</p>
             <p>Order Date: {new Date(props.creationDate).toLocaleDateString()}</p>
           </div>
+          
           <div className="order-item__actions">
-            <Button inverse onClick={openMapHandler}>
-              VIEW ON MAP
-            </Button>
-            {auth.userId === props.creatorId && (
+            {auth.userId && auth.userId === props.userId && (
               <Button to={`/orders/${props.id}`}>EDIT</Button>
             )}
-            {auth.userId === props.creatorId && (
+            {auth.userId && auth.userId === props.userId && (
               <Button danger onClick={showDeleteWarningHandler}>
                 DELETE
               </Button>

@@ -2,6 +2,8 @@ import React from "react";
 import OrderItem from "./OrderItem"; 
 import Button from "../../shared/components/FormElements/Button";
 
+import "./OrderList.css";
+
 const OrderList = (props) => {
   if (props.items.length === 0) {
     return (
@@ -24,6 +26,8 @@ const OrderList = (props) => {
           paymentMethod={order.paymentMethod}
           paymentStatus={order.paymentStatus}
           products={order.products}
+          creationDate={order.creationDate}
+          userId={order.userId}
           onDelete={props.onDeleteOrder} 
         />
       ))}

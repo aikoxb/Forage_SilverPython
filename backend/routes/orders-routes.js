@@ -42,6 +42,6 @@ router.patch("/:orderId",
 router.delete("/:orderId", ordersControllers.deleteOrder);
 
 //get orders by userId
-router.get("/:userId", ordersControllers.getOrdersByUserId);
+router.get("/user/:userId", ordersControllers.getOrdersByUserId);
 
 module.exports = router;
