@@ -23,6 +23,7 @@ const ProductList = (props) => {
             name={product.name}
             price={product.price}
             desc={product.itemDescription}
+            onAddToCart={props.onAddToCart}
           />
         ))}
       </ul>
