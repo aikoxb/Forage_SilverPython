@@ -26,6 +26,6 @@ router.post("/login", usersControllers.login);
 router.get("/:userId", usersControllers.getUserById); 
 
 //update user
-router.patch("/user/:userId", usersControllers.updateUserById);
+router.patch("/users/:userId", usersControllers.updateUserById);
 
 module.exports = router;

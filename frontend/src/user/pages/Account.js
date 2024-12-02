@@ -59,7 +59,7 @@ const Account = () => {
             };
 
             await sendRequest(
-                `http://localhost:8080/api/users/${auth.userId}`,
+                `http://localhost:8080/api/users/users/${auth.userId}`,
                 "PATCH",
                 JSON.stringify(updatedData),
                 {
