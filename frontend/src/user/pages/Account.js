@@ -62,7 +62,10 @@ const Account = () => {
                 `http://localhost:8080/api/users/${auth.userId}`,
                 "PATCH",
                 JSON.stringify(updatedData),
-                {"Content-Type": "application/json"}
+                {
+                    "Content-Type": "application/json", 
+                    Authorization: "Bearer " + auth.token,
+                }
             );
             setShowSuccessModal(true);
             setLoadedUser((prevUser) => ({ ...prevUser, ...updatedData }));
