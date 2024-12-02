@@ -123,7 +123,7 @@ const Auth = () => {
                   type="text"
                   label="Phone Number"
                   validators={[VALIDATOR_PHONE()]}
-                  errorText="Please enter a valid phone number."
+                  errorText="Please enter a valid phone number. (Hint: xxx-xxx-xxxx)"
                   onInput={inputHandler}
                 />
               </div>
