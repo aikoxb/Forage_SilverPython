@@ -10,49 +10,15 @@ import {
 import PlaceHolder from "./shared/pages/PlaceHolder";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import Cart from "./product/pages/Cart";
-
 import Auth from "./user/pages/Auth";
 import Account from "./user/pages/Account";
 import { AuthContext } from "./shared/context/auth-context";
 import { useAuth } from "./shared/hooks/auth-hooks";
 
 const App = () => {
-
   const { token, login, logout, userId } = useAuth();
 
   let routes;
-
-  if (token) {
-    //routes for logged-in users 
-    routes = (
-      <Switch>
-        <Route path="/" exact>
-          <Products />
-        </Route>
-        
-        <Route path="/:userId/cart" exact>
-          <PlaceHolder required='user"s card and all products' />
-        </Route>
-        <Route path="/account" exact>
-          <Account />
-        </Route>
-        <Redirect to="/" />
-      </Switch>
-    );
-  } else {
-    //routes for non-logged-in users
-    routes = (
-      <Switch>
-        <Route path="/" exact>
-          <Products />
-        </Route>
-        <Route path="/auth">
-          <Auth />
-        </Route>
-        <Redirect to="/auth" />
-      </Switch>
-    );
-  }
 
   //state to manage the items we put in the cart
   const [cart, setCart] = useState([]);
@@ -76,6 +42,40 @@ const App = () => {
     setCart((prevCart) => prevCart.filter((item) => item.id !== id));
   };
 
+  if (token) {
+    //routes for logged-in users 
+    routes = (
+      <Switch>
+        <Route path="/" exact>
+          <Products onAddToCart={addToCartHandler} />
+        </Route>
+        <Route path="/cart" exact>
+          <Cart cart={cart} onRemoveItem={removeFromCartHandler} />
+        </Route>
+        <Route path="/:userId/cart" exact>
+          <PlaceHolder required="user's card and all products" />
+        </Route>
+        <Route path="/account" exact>
+          <Account />
+        </Route>
+        <Redirect to="/" />
+      </Switch>
+    );
+  } else {
+    //routes for non-logged-in users
+    routes = (
+      <Switch>
+        <Route path="/" exact>
+          <Products onAddToCart={addToCartHandler} />
+        </Route>
+        <Route path="/auth">
+          <Auth />
+        </Route>
+        <Redirect to="/auth" />
+      </Switch>
+    );
+  }
+
   return (
     <AuthContext.Provider
       value={{
@@ -89,15 +89,7 @@ const App = () => {
       <Router>
         <MainNavigation />
         <main>
-        <Switch>
-          <Route path="/" exact>
-            <Products onAddToCart={addToCartHandler} />
-          </Route>
-          <Route path="/cart" exact>
-            <Cart cart={cart} onRemoveItem={removeFromCartHandler} />
-          </Route>
-          <Redirect to="/"/>
-        </Switch>
+          {routes}
         </main>
       </Router>
     </AuthContext.Provider>
