@@ -8,8 +8,6 @@ const NavLinks = (props) => {
 
     return (
         <ul className="nav-links">
-            <li><NavLink to="/" exact>Home Page</NavLink></li>
-            <li><NavLink to="/test" exact>Change Links</NavLink></li>
             <li><NavLink to="/cart" exact>Cart</NavLink></li>
             {/*<li><NavLink to="/auth">Authenticate</NavLink></li>
             <li><NavLink to=""></NavLink></li>
