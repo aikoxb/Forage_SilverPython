@@ -3,7 +3,7 @@ import React from "react";
 import ProductList from "../components/ProductList"
 import "./Home.css"
 
-const Products = (props) => {
+const Products = () => {
     const PRODUCTS = [
         {
             id: "p1",
@@ -70,7 +70,7 @@ const Products = (props) => {
         } 
     ];
 
-    return <ProductList items={PRODUCTS} onAddToCart={props.onAddToCart} />;
+    return <ProductList items={PRODUCTS} />;
 
 };
 
