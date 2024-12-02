@@ -31,7 +31,7 @@ ul {
 .cart-item__image {
   width: 80px;
   height: 80px;
-  background-color: #ccc;
+  background-color: #149616;
 }
 
 .cart-summary {
@@ -47,13 +47,13 @@ ul {
 }
 
 button {
-  background-color: #333;
-  color: white;
+  background-color: #9A6735;
+  color: #E6F0DC;
   border: none;
   padding: 5px 10px;
   cursor: pointer;
 }
 
 button:hover {
-  background-color: #555;
+  background-color: #149616;
 }
