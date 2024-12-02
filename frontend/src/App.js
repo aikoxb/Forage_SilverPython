@@ -7,6 +7,7 @@ import {
   Redirect,
   Switch,
 } from "react-router-dom";
+import PlaceHolder from "./shared/pages/PlaceHolder";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
 
 const App = () => {
@@ -17,6 +18,12 @@ const App = () => {
         <Switch>
           <Route path="/" exact>
             <Products />
+          </Route>
+          <Route path="/:userId" exact>
+          <PlaceHolder required='user"s account and details' />
+          </Route>
+          <Route path="/:userId/cart" exact>
+          <PlaceHolder required='user"s card and all products' />
           </Route>
           <Redirect to="/"/>
         </Switch>
