@@ -17,6 +17,7 @@ const ProductItem = (props) => {
       name: props.name,
       price: props.price,
       quantity: quantity,
+      image: props.image
     };
     props.onAddToCart(item);
   };
