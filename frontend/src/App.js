@@ -31,6 +31,7 @@ const App = () => {
       const updatedCart = [...cart];
       updatedCart[existingItemIndex].quantity += item.quantity;
       setCart(updatedCart);
+      {console.log(updatedCart)}
     } else {
       //or add item to cart if it doesn't exist yet
       setCart((prevCart) => [...prevCart, item]);
