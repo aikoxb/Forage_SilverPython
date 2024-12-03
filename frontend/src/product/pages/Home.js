@@ -9,7 +9,7 @@ const Products = (props) => {
             id: "p1",
             name: "White Bread",
             price: 2.99,
-            itemDescription: "A single load of white bread.",
+            itemDescription: "A single loaf of white bread.",
             image: "bread.jpg"
         },
         {
