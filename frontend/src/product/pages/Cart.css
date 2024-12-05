@@ -1,5 +1,6 @@
 .cart-container {
-  padding: 20px;
+  max-width: 80%;
+  margin: 5.5rem auto;
 }
 
 .cart-container h1 {
@@ -9,9 +10,10 @@
 .cart-page {
   display: flex;
   gap: 20px;
+  min-width: 100px;
 }
 
-ul {
+.cart-page ul {
   flex: 2;
   list-style: none;
   padding: 0;
@@ -21,62 +23,98 @@ ul {
 .cart-item {
   border: 1px solid #ccc;
   border-radius: 5px;
-  padding: 10px;
-  display: flex;
+  padding: 5px 20px 20px;
   gap: 10px;
   margin-bottom: 10px;
-  align-items: flex-start;
+  max-width: 80%;
+}
+
+.cart-item__content {
+  padding: 2px 10px;
+  display: flex;
+  gap: 5%;
+  align-items: center;
 }
 
 .cart-item__image {
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   background-color: #149616;
+}
+
+.cart-item__name {
+  min-width: 6rem;
+  width: 20rem;
+  padding: 2px;
+}
+
+.cart-item__details {
+  margin-right: 15%;
 }
 
 .cart-summary {
   flex: 1;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 10px;
+  border-radius: 8px;
   height: fit-content;
+  min-width: 20rem;
+  padding: 0px 30px 10px;
 }
 
-.cart-summary p {
-  margin: 5px 0;
+.text-bold {
+  font-weight: bold;
+}
+
+.subtotal-tax p {
+  margin: 5px 10px;
+}
+
+.cart-summary hr {
+  margin-top: 30px;
+}
+
+.summary-total {
+  font-weight: bold;
+  padding-top: 10px;
+  margin: 5px 10px;
 }
 
 button {
+  cursor: pointer;
+  font-size: 1.2em;
+  border-radius: 50px;
+  font-weight: 800;
+  border: none;
+}
+
+button.place-order {
   background-color: #9A6735;
   color: #E6F0DC;
-  border: none;
-  padding: 5px 10px;
-  cursor: pointer;
-  margin: 10px;
-  border-radius: 50px;
-  font-size: 1.2em;
-}
-
-button.plusminus{
-  background-color: #E6F0DC;
-  color: #149616;
-  border: none;
-  width: 50px;
-  height: 50px;
-  cursor: pointer;
-  font-size: xx-large;
-  font-weight: bolder;
-  border-color: #149616;
-  border: 1px solid;
-  margin:20px;
-}
-
-span{
-  font-weight: bolder;
-  font-size: 2em;
+  margin: 15px 0px;
+  padding: 0.5rem 1.5rem;
+  transform: scaleY(1.2);
+  font-weight: 800;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  margin-right: auto;
 }
 
 button:hover {
   background-color: #149616;
+  color: #E6F0DC;
+}
+
+.cart-item__content button {
+  background-color: #cb0303;
+  transform: scaleY(1.2); 
+  color: #E6F0DC;
+  font-size: 0.8em;
+  padding: 5px 20px;
+  text-transform: uppercase;
+  align-self: flex-end;
+}
+
+.cart-item__content button:hover {
+  background-color: #cb030390;
   color: #E6F0DC;
 }

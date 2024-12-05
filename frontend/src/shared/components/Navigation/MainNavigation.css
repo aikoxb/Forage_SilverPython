@@ -2,19 +2,25 @@
   width: 3rem;
   height: 3rem;
   background: transparent;
-  border: none;
+  border: 1px solid #E6F0DC;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  margin-right: 2rem;
+  margin: 2rem;
   cursor: pointer;
+  border-radius: 8px;
+  padding: 0.5rem ;
 }
 
 .main-navigation__menu-btn span {
   display: block;
-  width: 3rem;
+  width: 2rem;
   height: 2.5px;
   background: white;
+}
+
+.main-navigation__menu-btn:hover {
+  background-color: #80562c;
 }
 
 .main-navigation__title {
