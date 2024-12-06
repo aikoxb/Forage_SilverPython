@@ -9,18 +9,22 @@ const NavLinks = (props) => {
     return (
         <ul className="nav-links">
             <li><NavLink to="/" exact>Home Page</NavLink></li>
-            <li><NavLink to="/cart" exact>Cart</NavLink></li>
             {/*<li><NavLink to="/auth">Authenticate</NavLink></li>
             <li><NavLink to=""></NavLink></li>
             <li><NavLink to=""></NavLink></li>*/}
 
-            {auth.isLoggedIn && (
+            {auth.isLoggedIn && ( /*Only return cart Nav link if user is logged in*/
                 <li>
+                <NavLink to="/cart" exact>Cart</NavLink>
+                </li>        
+            )}
+            {auth.isLoggedIn && ( /*Only return account Nav link if user is logged in*/
+                <li>    
                 <NavLink to="/account" exact>Account</NavLink>
                 </li>
             )}
             {!auth.isLoggedIn && (
-                <li>
+                <li className="login-button">
                 <NavLink to="/auth">Login</NavLink>
                 </li>
             )}

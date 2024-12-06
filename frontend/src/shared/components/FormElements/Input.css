@@ -26,17 +26,24 @@
   .form-control textarea:focus {
     outline: none;
     background: #ebebeb;
-    border-color: #510077;
+    border-color: #149616;
   }
   
   .form-control--invalid label,
   .form-control--invalid p {
-    color: red;
+    color: #cb0303;
   }
   
   .form-control--invalid input,
   .form-control--invalid textarea {
-    border-color: red;
+    border-color: #cb0303;
     background: #ffd1d1;
   }
+
+.form-control textarea {
+  max-width: 100%;
+  min-width: 100%;
+  min-height: 1.5rem;
+  max-height: 8rem;
+}
   

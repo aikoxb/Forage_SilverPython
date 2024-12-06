@@ -33,11 +33,11 @@ const ProductItem = (props) => {
             <h2>{props.name}</h2>
             <h3>{"$" + props.price}{props.price % 1 === 0 ? ".00" : ""}</h3>
             <div className="product-item__actions">
-              <button className="plusminus" onClick={decrementQuantity}>-</button>
+              <button className="minus" onClick={decrementQuantity}>-</button>
               <span>{quantity}</span>
-              <button className="plusminus" onClick={incrementQuantity}>+</button>
+              <button className="plus" onClick={incrementQuantity}>+</button>
             </div>
-            <button onClick={addToCartHandler}>Add to Cart</button>
+            <button className="add-cart" onClick={addToCartHandler}>Add to Cart</button>
           </div>
         </div>
       </Card>

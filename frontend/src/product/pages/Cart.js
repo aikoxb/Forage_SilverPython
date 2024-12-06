@@ -30,14 +30,17 @@ const Cart = (props) => {
                     alt={item.name}
                     className="cart-item__image"
                   />
-                  <div className="cart-item__details">
+                  
+                  <div className="cart-item__name">
                     <h2>{item.name}</h2>
-                    <p>Quantity: {item.quantity}</p>
-                    <p>Price: ${item.price.toFixed(2)}</p>
-                    <button onClick={() => props.onRemoveItem(item.id)}>
-                      Remove
-                    </button>
                   </div>
+                  <div className="cart-item__details">
+                    <p><span className="text-bold">Quantity:</span> {item.quantity}</p>
+                    <p><span className="text-bold">Price:</span> ${item.price.toFixed(2)}</p>
+                  </div>
+                  <button onClick={() => props.onRemoveItem(item.id)}>
+                    Remove
+                  </button>                  
                 </div>
               </Card>
             </li>
@@ -45,10 +48,12 @@ const Cart = (props) => {
         </ul>
         <div className="cart-summary">
           <h2>Order Summary</h2>
-          <p>Subtotal: ${subtotal.toFixed(2)}</p>
-          <p>Tax: ${tax.toFixed(2)}</p>
-          <p>Total: ${total.toFixed(2)}</p>
-          <button>Place Order</button>
+          <div className="subtotal-tax">
+            <p><span className="text-bold">Subtotal:</span> ${subtotal.toFixed(2)}</p>
+            <p><span className="text-bold">Tax:</span> ${tax.toFixed(2)}</p>
+          </div><hr></hr>       
+          <p><span className="summary-total">Total:</span> ${total.toFixed(2)}</p>
+          <button className="place-order">Place Order</button>
         </div>
       </div>
     </div>
