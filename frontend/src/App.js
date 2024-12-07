@@ -14,6 +14,7 @@ import Auth from "./user/pages/Auth";
 import Account from "./user/pages/Account";
 import { AuthContext } from "./shared/context/auth-context";
 import { useAuth } from "./shared/hooks/auth-hooks";
+import SuccessModal from "./shared/components/UIElements/SuccessModal";
 
 const App = () => {
   const { token, login, logout, userId } = useAuth();
@@ -22,6 +23,8 @@ const App = () => {
 
   //state to manage the items we put in the cart
   const [cart, setCart] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
 
   const addToCartHandler = (item) => {
     const existingItemIndex = cart.findIndex((i) => i.id === item.id);
@@ -31,16 +34,39 @@ const App = () => {
       const updatedCart = [...cart];
       updatedCart[existingItemIndex].quantity += item.quantity;
       setCart(updatedCart);
-      {console.log(updatedCart)}
+      console.log(updatedCart)
+
+      //update modal
+      setModalMessage(
+        `Added ${item.quantity} more ${item.name} to the cart.`
+      );
     } else {
       //or add item to cart if it doesn't exist yet
       setCart((prevCart) => [...prevCart, item]);
+
+      //modal for adding items
+      setModalMessage(`Added ${item.quantity} ${item.name} to the cart.`);
     }
+
+    //show modal for adding items to cart
+    setModalVisible(true);
   };
 
   //if user deletes item from cart
   const removeFromCartHandler = (id) => {
+    const removedItem = cart.find((item) => item.id === id);
     setCart((prevCart) => prevCart.filter((item) => item.id !== id));
+
+    //modal for removing item
+    if (removedItem) {
+      setModalMessage(`${removedItem.name} was removed from the cart.`);
+      setModalVisible(true);
+    }
+  };
+
+  const closeModalHandler = () => {
+    setModalVisible(false);
+    setModalMessage("");
   };
 
   if (token) {
@@ -91,6 +117,11 @@ const App = () => {
         <MainNavigation />
         <main>
           {routes}
+          <SuccessModal
+            show={modalVisible}
+            onClear={closeModalHandler}
+            message={modalMessage}
+          />
         </main>
       </Router>
     </AuthContext.Provider>
