@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { AuthContext } from "../../shared/context/auth-context";
 import "./ProductItem.css"
 import Card from "../../shared/components/UIElements/Card";
 
 const ProductItem = (props) => {
+  const { isLoggedIn } = useContext(AuthContext);
 
   const [quantity, setQuantity] = useState(1); //made 1 the default quantity
 
@@ -32,12 +34,18 @@ const ProductItem = (props) => {
           <div className="product-item__info">
             <h2>{props.name}</h2>
             <h3>{"$" + props.price}{props.price % 1 === 0 ? ".00" : ""}</h3>
-            <div className="product-item__actions">
-              <button className="minus" onClick={decrementQuantity}>-</button>
-              <span>{quantity}</span>
-              <button className="plus" onClick={incrementQuantity}>+</button>
-            </div>
-            <button className="add-cart" onClick={addToCartHandler}>Add to Cart</button>
+            
+            {isLoggedIn && (
+              <>
+                <div className="product-item__actions">
+                  <button className="minus" onClick={decrementQuantity}>-</button>
+                  <span>{quantity}</span>
+                  <button className="plus" onClick={incrementQuantity}>+</button>
+                </div>
+                <button className="add-cart" onClick={addToCartHandler}>Add to Cart</button>
+            </>
+            )}
+          {!isLoggedIn && <p>Please log in to manage your cart.</p>}
           </div>
         </div>
       </Card>
