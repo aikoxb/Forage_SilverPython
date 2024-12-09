@@ -14,11 +14,11 @@ router.use(checkAuth)
 router.post("/",
     [
         check("userId").notEmpty(),
-        check("orderStatus").notEmpty(),
+        check("status").optional(),
         check("deliveryName").notEmpty(),
         check("deliveryAddress").notEmpty(),
-        check("paymentMethod").notEmpty(),
-        check("paymentStatus").notEmpty(),
+        check("paymentMethod").optional(),
+        check("paymentStatus").optional(),
         check("products").notEmpty()
     ],
     ordersControllers.createOrder

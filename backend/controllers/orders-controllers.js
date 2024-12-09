@@ -14,7 +14,8 @@ const createOrder = async (req, res, next) => {
     }
 
     //get order details from req body
-    const { userId, orderStatus, deliveryName, deliveryAddress, paymentMethod, paymentStatus, products } = req.body;
+    const { userId, products } = req.body;
+    console.log("Received req body:", req.body);//Log for debugging
     
     //check if user exists for order
     let existingUserId;
@@ -27,6 +28,15 @@ const createOrder = async (req, res, next) => {
     if (existingUserId.length == 0) {
         return next(new HttpError("User does not exist, please create order with a valid user", 422));
     }
+
+    //Use logged-in user's address and name for order/delivery
+    const deliveryName = existingUserId.name;
+    const deliveryAddress = existingUserId.address;
+
+    //Set default values for order status and payment details
+    const orderStatus = "Pending";
+    const paymentMethod = "N/A";
+    const paymentStatus = "N/A";
 
     //set the creation date to current date/time
     const creationDate = new Date();
@@ -45,11 +55,11 @@ const createOrder = async (req, res, next) => {
     //create an order with all details
     const newOrder = new Order({ 
         userId,
-        orderStatus, 
-        deliveryName, 
-        deliveryAddress, 
-        paymentMethod, 
-        paymentStatus, 
+        orderStatus, //Has default value
+        deliveryName, //Same as logged-in user's name
+        deliveryAddress, //Same as logged-in user's address
+        paymentMethod, //Has default value
+        paymentStatus, //Has default value
         creationDate, 
         products
     });
