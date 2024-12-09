@@ -74,6 +74,7 @@ const Cart = (props) => {
       );
       console.log("Order placed successfully:", responseData); //Log response from the backend
       setShowSuccessModal(true);
+      props.onRemoveItem(0);  //once sent, removes the whole cart
     } catch (err) {
       console.error("Failed to place order:", err); //Error log for debugging
     }

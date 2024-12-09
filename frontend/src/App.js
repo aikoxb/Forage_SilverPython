@@ -54,6 +54,7 @@ const App = () => {
 
   //if user deletes item from cart
   const removeFromCartHandler = (id) => {
+    if (id === 0) {setCart([]);}
     const removedItem = cart.find((item) => item.id === id);
     setCart((prevCart) => prevCart.filter((item) => item.id !== id));
 
